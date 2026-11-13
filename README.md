@@ -12,7 +12,9 @@ Everything runs in the browser. Nothing is uploaded; a shared link carries the c
 
 ## Use
 
-Open `index.html` in a browser (no build step, no dependencies), or serve the folder:
+Online: <https://yamnor.github.io/flow-diagram/>
+
+Or open `index.html` in a browser (no build step, no dependencies), or serve the folder:
 
 ```bash
 python3 -m http.server 8000
