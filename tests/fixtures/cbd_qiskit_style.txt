@@ -1,0 +1,16 @@
+# test input: qiskit style, blocked spin order NOT applied (interleaved circuit); use HF override 11110000
+# electrons: 4
+0.143395116970049 | SparsePauliOp(['IYZXIXZX', 'IXZYIXZX', 'IXZXIYZX', 'IYZYIYZX', 'YZZXXZZX', 'XZZYXZZX', 'XZZXYZZX', 'YZZYYZZX', 'IXZXIXZY', 'IYZYIXZY', 'IYZXIYZY', 'IXZYIYZY', 'XZZXXZZY', 'YZZYXZZY', 'YZZXYZZY', 'XZZYYZZY', 'IYXIIXXI', 'IXYIIXXI', 'IXXIIYXI', 'IYYIIYXI', 'YZXIXZXI', 'XZYIXZXI', 'XZXIYZXI', 'YZYIYZXI', 'IXXIIXYI', 'IYYIIXYI', 'IYXIIYYI', 'IXYIIYYI', 'XZXIXZYI', 'YZYIXZYI', 'YZXIYZYI', 'XZYIYZYI'],
+              coeffs=[0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j])
+-0.04764663768657396 | SparsePauliOp(['YXIIIIXX', 'XYIIIIXX', 'XXIIIIYX', 'YYIIIIYX', 'XXIIIIXY', 'YYIIIIXY', 'YXIIIIYY', 'XYIIIIYY'],
+              coeffs=[0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, -0.250+0.j])
+-0.16191198503006193 | SparsePauliOp(['IIYXXXII', 'IIXYXXII', 'IIXXYXII', 'IIYYYXII', 'IIXXXYII', 'IIYYXYII', 'IIYXYYII', 'IIXYYYII'],
+              coeffs=[0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, -0.250+0.j])
+0.12081683153665174 | SparsePauliOp(['IYZXIXZX', 'IXZYIXZX', 'IXZXIYZX', 'IYZYIYZX', 'IYXIXZZX', 'IXYIXZZX', 'IXXIYZZX', 'IYYIYZZX', 'IXZXIXZY', 'IYZYIXZY', 'IYZXIYZY', 'IXZYIYZY', 'IXXIXZZY', 'IYYIXZZY', 'IYXIYZZY', 'IXYIYZZY', 'YZZXIXXI', 'XZZYIXXI', 'XZZXIYXI', 'YZZYIYXI', 'YZXIXZXI', 'XZYIXZXI', 'XZXIYZXI', 'YZYIYZXI', 'XZZXIXYI', 'YZZYIXYI', 'YZZXIYYI', 'XZZYIYYI', 'XZXIXZYI', 'YZYIXZYI', 'YZXIYZYI', 'XZYIYZYI'],
+              coeffs=[-0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, -0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j, 0.125+0.j, -0.125+0.j, 0.125+0.j, 0.125+0.j])
+-0.058543074025362796 | SparsePauliOp(['IIYXIIXX', 'IIXYIIXX', 'IIXXIIYX', 'IIYYIIYX', 'IIXXIIXY', 'IIYYIIXY', 'IIYXIIYY', 'IIXYIIYY'],
+              coeffs=[0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, -0.250+0.j])
+-0.05310826851036111 | SparsePauliOp(['YXIIXXII', 'XYIIXXII', 'XXIIYXII', 'YYIIYXII', 'XXIIXYII', 'YYIIXYII', 'YXIIYYII', 'XYIIYYII'],
+              coeffs=[0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, 0.250+0.j, -0.250+0.j, -0.250+0.j])
+-0.07082005307274113 | SparsePauliOp(['IIIYZXII', 'IIIXZYII', 'IIYZXIII', 'IIXZYIII'],
+              coeffs=[0.500+0.j, -0.500+0.j, 0.500+0.j, -0.500+0.j])

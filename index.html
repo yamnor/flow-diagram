@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow Diagram</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Flow Diagram</h1>
+  <span class="tag">paste an ADAPT circuit · everything runs in this page</span>
+  <div class="actions">
+    <button id="share" disabled title="Copy a link that reopens this circuit at this frame">Copy link</button>
+    <button id="png" disabled title="Save the current frame as an image">PNG</button>
+    <button id="svg" disabled title="Save the diagram with net arrows as a vector figure">SVG</button>
+    <button id="rec" disabled title="Play from the start and save it as a video">Record video</button>
+  </div>
+</header>
+
+<details class="panel input" id="input" open>
+  <summary><b>Circuit</b><span class="sumtext" id="sumtext">paste a circuit below</span><span class="edit">edit</span></summary>
+  <div class="inputbody">
+    <textarea id="src" spellcheck="false" aria-label="Circuit" placeholder="One operation per block:  angle | operator&#10;0.1434 | -0.125j [X0 Z1 X2 X4 Z5 Y6] + ...&#10;&#10;or PennyLane gates, one per line:&#10;DoubleExcitation(0.30, wires=[2, 3, 6, 7])"></textarea>
+    <div class="btns">
+      <button class="primary" id="go">Draw</button>
+      <button id="sample">Example: cyclobutadiene</button>
+      <button id="sample2">Example: H₄ (repeats)</button>
+      <span class="msg" id="msg"></span>
+    </div>
+    <details class="formats">
+      <summary>Accepted formats and how to print them</summary>
+      <p>Jordan–Wigner only. Each operation is <code>U = exp(−iθH)</code> for a Hermitian Pauli sum (real coefficients),
+      or <code>U = exp(θA)</code> for an anti-Hermitian one (imaginary coefficients, e.g. <code>jordan_wigner(T − T†)</code>).</p>
+      <p>OpenFermion</p>
+      <pre>for theta, gen in zip(thetas, generators):  # gen = T - T^dagger
+    print(theta, '|', jordan_wigner(gen))</pre>
+      <p>Qiskit (the label's rightmost letter is qubit 0)</p>
+      <pre>for theta, op in zip(thetas, operators):    # SparsePauliOp
+    print(theta, '|', op)</pre>
+      <p>PennyLane — the gates of the ADAPT circuit as printed (no <code>angle |</code> needed)</p>
+      <pre>for op in tape.operations:   # BasisState(...), DoubleExcitation(θ, wires=[...]), ...
+    print(op)</pre>
+      <p>or Pauli sums</p>
+      <pre>for theta, op in zip(thetas, qubit_ops):
+    print(theta, '|', op.simplify())</pre>
+    </details>
+  </div>
+</details>
+
+<div class="reading" id="reading" hidden>
+  <span class="chip" id="fmtchip"></span>
+  <label>electrons <input id="nel" type="number" min="0" step="1"></label>
+  <label>spin order
+    <select id="order">
+      <option value="auto">auto</option>
+      <option value="interleaved">interleaved α β α β</option>
+      <option value="blocked">blocked α α … β β</option>
+    </select></label>
+  <label>HF <input id="hf" type="text" placeholder="auto" title="HF bitstring, qubit 0 first"></label>
+  <span id="hfinfo"></span>
+  <span id="warn" class="warn"></span>
+</div>
+
+<main class="view">
+  <section class="panel">
+    <div id="mapwrap">
+      <canvas id="map" aria-label="Flow diagram"></canvas>
+      <div class="tip" id="tip"></div>
+      <div class="empty" id="empty">Paste a circuit and press Draw,<br>or try one of the examples.</div>
+    </div>
+    <div class="mapkey" id="mapkey" hidden>
+      <span><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="currentColor"/></svg> + amplitude</span>
+      <span><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg> − amplitude</span>
+      <span>color = excitation class</span>
+      <span>area = probability</span>
+      <span>streaks = flow now · arrows = net flow · colored from → to class</span>
+      <span>click a circle to pin</span>
+    </div>
+  </section>
+
+  <section class="panel" id="side" hidden>
+    <div class="transport">
+      <button id="restart" class="primary" title="Play from the start (R)">↺ From start</button>
+      <span class="seg">
+        <button id="prev" title="Previous operation (←)" aria-label="Previous operation">⏮</button>
+        <button id="play" title="Play / pause (Space)">▶ Play</button>
+        <button id="next" title="Next operation (→)" aria-label="Next operation">⏭</button>
+      </span>
+      <select id="speed" aria-label="Speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+      <span class="spacer"></span>
+      <label><input type="checkbox" id="net"> net arrows</label>
+      <details class="settings"><summary>settings</summary>
+        <div class="box"><label>show flows ≥ <input id="thr" type="number" value="5" min="0" max="100" step="1"> % of the operation's peak</label></div>
+      </details>
+    </div>
+    <div id="oplabel"></div>
+    <div class="sub"><span>Circuit — bar = θ; brackets join repeated operators (orange: θ flips sign, operations in between shaded)</span><span>drag to scrub</span></div>
+    <div class="scrub"><canvas id="strip"></canvas><div class="tip" id="tip2"></div></div>
+    <div class="sub"><span>Weight of each excitation class</span></div>
+    <div class="scrub"><canvas id="ranks"></canvas><div class="tip" id="tip3"></div></div>
+    <div class="legend" id="legend"></div>
+    <div id="pins">
+      <div class="sub"><span>Pinned configurations — probability (scale fits the pinned ones)</span><button id="unpin">clear</button></div>
+      <div class="scrub"><canvas id="pinchart"></canvas></div>
+      <div id="pinlist"></div>
+    </div>
+    <details class="checks" id="checksbox"><summary id="checksum">Checks</summary><table id="checks"></table></details>
+    <div class="keys"><kbd>R</kbd> from start · <kbd>Space</kbd> play/pause · <kbd>←</kbd><kbd>→</kbd> operation · <kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd> frame · <kbd>Home</kbd><kbd>End</kbd></div>
+  </section>
+</main>
+<div id="toast" role="status"></div>
+<script src="js/core.js"></script>
+<script src="js/examples.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
